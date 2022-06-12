@@ -18,6 +18,8 @@ from pandas.plotting import lag_plot
 
 
 # In[13]:
+from keras.layers.convolutional_recurrent import ConvLSTM2D
+from keras.layers import Dense, SimpleRNN, LSTM
 
 
 from sklearn.metrics import r2_score
@@ -62,7 +64,6 @@ from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 
 
 from pandas.plotting import autocorrelation_plot
-import gif
 import json
 
 
@@ -81,8 +82,6 @@ tf.__version__
 
 import tensorflow as tf
 from tensorflow import keras
-
-import gif
 from tqdm import tqdm
 
 
@@ -92,6 +91,11 @@ from tqdm import tqdm
 from sklearn import metrics
 import statsmodels.api as sm
 
+import sys
+import os
+from os.path import dirname
+parent = (dirname(os.path.abspath('')))
+sys.path.insert(0, parent)
 
 # # Read Datam
 
@@ -280,7 +284,7 @@ class TimeSeries:
 
         self._setup_lstm_model()
         
-        self.path_checkpoint = f"Models/LSTM_monitor_{monitor}_epochs_{epochs}_validation_split_{validation_split}.h5"
+        self.path_checkpoint = parent+ f"/Models/LSTM_monitor_{monitor}_epochs_{epochs}_validation_split_{validation_split}.h5"
             
         es_callback = keras.callbacks.EarlyStopping(monitor, min_delta, patience)
 
